@@ -46,8 +46,8 @@ def load_connectivity(subject_list, kind, atlas_name = 'ho'):
     return all_networks
 
 
-def getconn_vector(subject_name, kind, atlas, label_dict):
-    subject_name = np.array(subject_name)
+def getconn_vector(subject_name0, kind, atlas, label_dict):
+    subject_name = np.array(subject_name0)
     data_x = []
     data_y = []
     conn_array = load_connectivity(subject_name, kind, atlas)
