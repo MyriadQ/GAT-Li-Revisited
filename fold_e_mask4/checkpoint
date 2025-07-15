@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/celery/Documents/Research/GNN-Research/fold_e_mask4/gat_e4_weights_best.ckpt"
+all_model_checkpoint_paths: "/home/celery/Documents/Research/GNN-Research/fold_e_mask4/gat_e4_weights_best.ckpt"
