@@ -1,5 +1,3 @@
-from __future__ import division
-from __future__ import print_function
 import time
 import tensorflow as tf
 import numpy as np
@@ -10,7 +8,6 @@ np.random.seed(seed)
 tf.set_random_seed(seed)
 
 import sys, os
-import time
 import csv
 from sklearn.metrics import confusion_matrix
 import scipy.io as sio
