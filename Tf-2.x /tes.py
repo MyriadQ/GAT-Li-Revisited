@@ -44,7 +44,7 @@ config = {
     'in_drop': 0.0,            # Input dropout rate
     'weight_decay': 5e-4,      # L2 weight decay
     'early_stopping': 15,      # Early stopping tolerance
-    'fold': 4                  # Target fold to train
+    'fold': 3                  # Target fold to train
 }
 
 # ------------------------------------------------------
