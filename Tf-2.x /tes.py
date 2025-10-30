@@ -509,10 +509,10 @@ def main():
     # 8.2 K-fold setup (only run target fold)
     # --------------------------
     skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    all_results = [] #store results from all folds
     # Get train/test indices for target fold (config['fold'] = 4)
     for fold_idx, (train_index, test_index) in enumerate(skf.split(subject_IDs, label_list)):
-        if fold_idx != config['fold']:
-            continue
+        print(f"\n=== Processing Fold {fold_idx} ===")
 
         # Split data into train/test
         features_train, features_test = X[train_index], X[test_index]
@@ -678,11 +678,30 @@ def main():
             pkl.dump(s_m, f)
         print(f"\nMask saved to: {save_path}")
 
-        # Print final results
         print(f"\nFinal Results - Phase 1 Acc: {l1} | Phase 2 Acc: {l2}")
         print(f"Full Metrics: {result}")
 
-        break  # Exit after target fold
+        all_results.append({
+        'fold': fold_idx,
+        'phase1_acc': test_acc.numpy(),
+        'phase2_acc': test_acc_mask.numpy(),
+        })
+
+    # --------------------------
+    # Print AGGREGATED results (mean accuracy across folds)
+    # --------------------------
+    print("\n" + "="*50)
+    print("All Folds Completed! Mean Accuracy Across Folds:")
+    print("="*50)
+
+    # Calculate mean accuracy for Phase 1 and Phase 2
+    mean_phase1_acc = np.mean([res['phase1_acc'] for res in all_results])
+    mean_phase2_acc = np.mean([res['phase2_acc'] for res in all_results])
+
+    print(f"Phase 1 Mean Accuracy: {mean_phase1_acc:.5f}")
+    print(f"Phase 2 Mean Accuracy: {mean_phase2_acc:.5f}")
+
+
 
 # Run main
 if __name__ == "__main__":
