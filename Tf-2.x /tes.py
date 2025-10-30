@@ -452,7 +452,7 @@ class GATMILModel(Model):
 # ------------------------------------------------------
 # Step 7: Data loading functions (keep same logic, TF2-compatible)
 # ------------------------------------------------------
-def load_connectivity(subject_list, kind, atlas_name='ho', data_folder='/Users/celery/Research/dataset/ABIDE/Outputs/cpac/filt_global/mat'):#home/celery/Data/ABIDE/ABIDE/Outputs/cpac/filt_global/mat
+def load_connectivity(subject_list, kind, atlas_name='ho', data_folder='home/celery/Data/ABIDE/ABIDE/Outputs/cpac/filt_global/mat'):#Local: /Users/celery/Research/dataset/ABIDE/Outputs/cpac/filt_global/mat
     """Load connectivity matrices (same as original)"""
     all_networks = []
     for subject in subject_list:
@@ -497,7 +497,7 @@ def main():
     # 8.1 Load data
     # --------------------------
     # Subject IDs and labels
-    subject_IDs = np.genfromtxt('/Users/celery/Research/GAT-Li-Revisited/IDs/valid_subject_ids.txt', dtype=str).tolist()
+    subject_IDs = np.genfromtxt('/home/celery/Project/GAT-Li-Revisited/IDs/valid_subject_ids.txt', dtype=str).tolist() #Local: /Users/celery/Research/GAT-Li-Revisited/IDs/valid_subject_ids.txt
     label_dict = Reader.get_label(subject_IDs)  # Assume Reader is compatible with TF2
     label_list = np.array([int(label_dict[x]) for x in subject_IDs])
 
@@ -535,8 +535,8 @@ def main():
 
         # Model save paths (matches original)
         # New paths (with .weights.h5 extension)
-        bestModelSavePath0 = '/Users/celery/Research/GAT-Li-Revisited/Model_save/fold_e_mask%s/gat_e%s_weights_best.weights.h5' % (str(fold_idx), str(fold_idx))
-        bestModelSavePath1 = '/Users/celery/Research/GAT-Li-Revisited/Model_save/fold_e_mask%s/gat_e%s_weights_best.weights.h5' % (str(fold_idx), str(fold_idx))
+        bestModelSavePath0 = '/home/celery/Project/GAT-Li-Revisited/Model_save/fold_e_mask%s/gat_e%s_weights_best.weights.h5' % (str(fold_idx), str(fold_idx)) #Users/celery/Research/GAT-Li-Revisited/Model_save
+        bestModelSavePath1 = '/home/celery/Project/GAT-Li-Revisited/Model_save/fold_e_mask%s/gat_e%s_weights_best.weights.h5' % (str(fold_idx), str(fold_idx))
         # Create directory if not exists
         os.makedirs(os.path.dirname(bestModelSavePath0), exist_ok=True)
 
@@ -670,7 +670,7 @@ def main():
         # Get sigmoid mask (same as original)
         s_m = tf.sigmoid(model.M).numpy()
         # Save directory
-        save_dir = "/Users/celery/Research/GAT-Li-Revisited/weights" #/home/celery/Data/ABIDE/ABIDE/weights
+        save_dir = "/home/celery/Project/GAT-Li-Revisited/weights" #/Users/celery/Research/GAT-Li-Revisited/weights
         os.makedirs(save_dir, exist_ok=True)
         save_path = os.path.join(save_dir, f"fold{fold_idx}_mask.pkl")
         # Save mask
