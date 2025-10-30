@@ -33,7 +33,7 @@ def load_connectivity(subject_list, kind, atlas_name = 'ho'):
 
         all_networks : list of connectivity matrices (regions x regions)
     """
-    data_folder = '/home/celery/Documents/Research/dataset/Outputs/cpac/filt_global/mat/'
+    data_folder = '/home/celery/Data/ABIDE/ABIDE/Outputs/cpac/filt_global/mat/'
     all_networks = []
     for subject in subject_list:
         fl = os.path.join(data_folder, subject + "_" + atlas_name + "_" + kind + ".mat")

@@ -452,7 +452,7 @@ class GATMILModel(Model):
 # ------------------------------------------------------
 # Step 7: Data loading functions (keep same logic, TF2-compatible)
 # ------------------------------------------------------
-def load_connectivity(subject_list, kind, atlas_name='ho', data_folder='home/celery/Data/ABIDE/ABIDE/Outputs/cpac/filt_global/mat'):#Local: /Users/celery/Research/dataset/ABIDE/Outputs/cpac/filt_global/mat
+def load_connectivity(subject_list, kind, atlas_name='ho', data_folder='/home/celery/Data/ABIDE/ABIDE/Outputs/cpac/filt_global/mat'):#Local: /Users/celery/Research/dataset/ABIDE/Outputs/cpac/filt_global/mat
     """Load connectivity matrices (same as original)"""
     all_networks = []
     for subject in subject_list:
