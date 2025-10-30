@@ -6,3 +6,4 @@ matplotlib 3.10.5
 tf 2.20.0
 
 python 3.13.5
+ABIDE_Parser

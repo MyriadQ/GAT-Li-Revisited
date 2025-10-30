@@ -5,7 +5,7 @@ import scipy.io as sio
 from nilearn import connectome
 
 
-phenotype = '/Users/celery/Research/GAT-Li-Revisited/IDs/Phenotypic_V1_0b_preprocessed1.csv'
+phenotype = '/home/celery/Project/GAT-Li-Revisited/IDs/Phenotypic_V1_0b_preprocessed1.csv'
 
 def get_label(subject_list):
     label_dict = {}
