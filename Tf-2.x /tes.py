@@ -510,7 +510,7 @@ def main():
     # --------------------------
     skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     all_results = [] #store results from all folds
-    target_fold = 2
+    target_fold = 3
     # Get train/test indices for target fold (config['fold'] = 4)
     for fold_idx, (train_index, test_index) in enumerate(skf.split(subject_IDs, label_list)):
 
