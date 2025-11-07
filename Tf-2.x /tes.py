@@ -692,6 +692,9 @@ def main():
         'phase2_acc': test_acc_mask.numpy(),
         })
 
+        print(f"\nCompleted Fold {fold_idx}! Exiting loop.")
+        break  # Exit the K-fold loop after processing Fold i
+
     # --------------------------
     # Print AGGREGATED results (mean accuracy across folds)
     # --------------------------
