@@ -44,7 +44,7 @@ config = {
     'in_drop': 0.0,            # Input dropout rate
     'weight_decay': 5e-4,      # L2 weight decay
     'early_stopping': 15,      # Early stopping tolerance
-    'fold': 5                  # Target fold to train
+    'fold': 0                  # Target fold to train
 }
 
 # ------------------------------------------------------
@@ -510,8 +510,13 @@ def main():
     # --------------------------
     skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     all_results = [] #store results from all folds
+    target_fold = 0
     # Get train/test indices for target fold (config['fold'] = 4)
     for fold_idx, (train_index, test_index) in enumerate(skf.split(subject_IDs, label_list)):
+
+        if fold_idx != target_fold:
+            print(f"Skipping Fold {fold_idx}")
+            continue
         print(f"\n=== Processing Fold {fold_idx} ===")
 
         # Split data into train/test
