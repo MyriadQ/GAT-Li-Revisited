@@ -700,7 +700,7 @@ def main():
         })
 
         print(f"\nCompleted Fold {fold_idx}! Exiting loop.")
-        break  # Exit the K-fold loop after processing Fold i
+        break  # Exit the K-fold loop after processing Fold i just for testing each fold
 
     # --------------------------
     # Print AGGREGATED results (mean accuracy across folds)
