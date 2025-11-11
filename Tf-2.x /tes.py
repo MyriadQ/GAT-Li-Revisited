@@ -417,8 +417,8 @@ class GATMILModel(Model):
             trainable_vars = [self.M]  # Phase 2: optimize only the explainer mask
         else:
             # Phase 1: optimize everything EXCEPT the mask (match TF1 behavior)
-            mask_ref = self.M.ref()
-            trainable_vars = [var for var in self.trainable_variables if var.ref() is not mask_ref]
+            mask_ref = self.M
+            trainable_vars = [var for var in self.trainable_variables if var is not mask_ref]
 
         # Compute gradients and apply updates
         gradients = tape.gradient(total_loss, trainable_vars)
