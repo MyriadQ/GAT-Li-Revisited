@@ -164,7 +164,7 @@ class GATLayer(layers.Layer):
             dense_masks.append(dense)
 
             # Step 5: Softmax to get attention coefficients
-            dense = tf.nn.softmax(dense)  # (batch_size, node_num, node_num)
+            dense = tf.nn.softmax(dense, axis = -1)  # (batch_size, node_num, node_num)
 
             # Step 6: Dropout on attention coefficients and features (training only)
             if training and self.dropout_rate > 0.0:
@@ -333,9 +333,10 @@ class GATMILModel(Model):
             input_dim=self.config['node_num'],
             output_dim=self.config['node_num'],
             dropout=self.config['dropout'],
-            act=tf.nn.softmax,
+            act=lambda t: tf.nn.softmax(t, axis=-1),
             bias=False,
             name='2'
+
         )
 
         # Store layers for easy access
@@ -406,12 +407,18 @@ class GATMILModel(Model):
             acc = accuracy(y_pred, y_batch)
 
         # Determine which variables to update
-        if training_mask:
+        '''if training_mask:
             # Only update mask M (mask optimization phase)
             trainable_vars = [self.M]
         else:
             # Update all variables except M (model training phase)
-            trainable_vars = [var for var in self.trainable_variables if var.name != 'mask:0']
+            trainable_vars = [var for var in self.trainable_variables if var.name != 'mask:0']'''
+        if training_mask:
+            trainable_vars = [self.M]  # Phase 2: optimize only the explainer mask
+        else:
+            # Phase 1: optimize everything EXCEPT the mask (match TF1 behavior)
+            mask_ref = self.M.ref()
+            trainable_vars = [var for var in self.trainable_variables if var.ref() is not mask_ref]
 
         # Compute gradients and apply updates
         gradients = tape.gradient(total_loss, trainable_vars)
