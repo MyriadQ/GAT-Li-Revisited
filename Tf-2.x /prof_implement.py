@@ -216,7 +216,7 @@ class FCLayer(layers.Layer):
         zero_init = initializers.Zeros()
 
         # Linear weight (replaces custom glorot([input_dim, output_dim]))
-        self.weights = self.add_weight(
+        self.kernel = self.add_weight( #weights
             shape=(self.input_dim, self.output_dim),
             initializer=glorot_init,
             dtype=tf.float32,
@@ -247,7 +247,7 @@ class FCLayer(layers.Layer):
             x = tf.nn.dropout(x, rate=self.dropout)
 
         # Linear transformation (replace TF1 tf.tensordot)
-        output = tf.matmul(x, self.weights)
+        output = tf.matmul(x, self.kernel)
 
         # Add bias (if enabled)
         if self.bias:
