@@ -520,10 +520,10 @@ def main():
     # Get train/test indices for target fold (config['fold'] = 4)
     for fold_idx, (train_index, test_index) in enumerate(skf.split(subject_IDs, label_list)):
 
-        if fold_idx != target_fold:
+        '''if fold_idx != target_fold:
             print(f"Skipping Fold {fold_idx}")
             continue
-        print(f"\n=== Processing Fold {fold_idx} ===")
+        print(f"\n=== Processing Fold {fold_idx} ===")'''
 
         # Split data into train/test
         features_train, features_test = X[train_index], X[test_index]
@@ -699,7 +699,7 @@ def main():
         })
 
         print(f"\nCompleted Fold {fold_idx}! Exiting loop.")
-        break  # Exit the K-fold loop after processing Fold i just for testing each fold
+        #break  # Exit the K-fold loop after processing Fold i just for testing each fold
 
     # --------------------------
     # Print AGGREGATED results (mean accuracy across folds)
