@@ -516,7 +516,7 @@ def main():
     # --------------------------
     skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     all_results = [] #store results from all folds
-    target_fold = 4
+    #target_fold = 4
     # Get train/test indices for target fold (config['fold'] = 4)
     for fold_idx, (train_index, test_index) in enumerate(skf.split(subject_IDs, label_list)):
 
@@ -696,6 +696,8 @@ def main():
         'fold': fold_idx,
         'phase1_acc': test_acc.numpy(),
         'phase2_acc': test_acc_mask.numpy(),
+        'phase1_auc': roc_auc,
+        'phase1_f1': fscore,
         })
 
         print(f"\nCompleted Fold {fold_idx}! Exiting loop.")
@@ -714,6 +716,40 @@ def main():
 
     print(f"Phase 1 Mean Accuracy: {mean_phase1_acc:.5f}")
     print(f"Phase 2 Mean Accuracy: {mean_phase2_acc:.5f}")
+
+
+    #PRINT THE SUMMARY
+    print("\n\n================ FINAL SUMMARY ================\n")
+
+    # Convert lists to arrays
+    phase1_accs = np.array([r['phase1_acc'] for r in all_results])
+    phase2_accs = np.array([r['phase2_acc'] for r in all_results])
+    phase1_aucs = np.array([r['phase1_auc'] for r in all_results])
+    phase1_f1s = np.array([r['phase1_f1'] for r in all_results])
+
+    # Print fold-by-fold summary table
+    print("Per-Fold Metrics:")
+    print("Fold | Phase1_Acc | Phase2_Acc | AUC | F1")
+    print("----------------------------------------------")
+    for r in all_results:
+        print("{:4d} | {:10.5f} | {:10.5f} | {:6.5f} | {:6.5f}".format(
+            r['fold'],
+            r['phase1_acc'],
+            r['phase2_acc'],
+            r['phase1_auc'],
+            r['phase1_f1']
+        ))
+
+    # Print mean and std
+    print("\nMean Metrics Across Folds:")
+    print("----------------------------------------------")
+    print("Phase 1 Mean Accuracy:  {:.5f} ± {:.5f}".format(phase1_accs.mean(), phase1_accs.std()))
+    print("Phase 2 Mean Accuracy:  {:.5f} ± {:.5f}".format(phase2_accs.mean(), phase2_accs.std()))
+    print("Phase 1 Mean AUC:       {:.5f} ± {:.5f}".format(phase1_aucs.mean(), phase1_aucs.std()))
+    print("Phase 1 Mean F1:        {:.5f} ± {:.5f}".format(phase1_f1s.mean(), phase1_f1s.std()))
+
+    print("\n================ END OF SUMMARY ================\n")
+
 
 
 
